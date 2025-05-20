@@ -1,7 +1,7 @@
 const otpMap = new Map<string, { otp: string; expiresAt: number }>();
 
 export function storeOtp(email: string, otp: string) {
-  otpMap.set(email, { otp, expiresAt: Date.now() + 5 * 60 * 1000 }); // 5 minutes
+  otpMap.set(email, { otp, expiresAt: Date.now() + 5 * 60 * 1000 });
 }
 
 export function validateOtp(email: string, inputOtp: string): boolean {
