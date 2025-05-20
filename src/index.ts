@@ -3,6 +3,8 @@ import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes';
+import booksRoutes from './routes/booksRoutes';
+import categoriesRoutes from './routes/categoriesRoutes';
 
 dotenv.config();
 
@@ -12,6 +14,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
+app.use('/api/books', booksRoutes);
+app.use('/api/categories', categoriesRoutes);
 
 const PORT = process.env.PORT || 4000;
 
