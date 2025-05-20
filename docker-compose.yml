@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  backend:
+    build: .
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=development
+      - PORT=4000
+      - JWT_SECRET=65c5320309ff6fc7b15338bdb658e1a7775fde7b4146d8c3655ac637b6fdcfc55714e4bb845a6c3adadf19c833d3b460b9e5e687a4a95cdff4ed5d1337c7b89ac750a5251181243e4b5fd975c588782969b5ee944482f4e9f844486a96433fac0605ef4ea6a13083174b7e910f34371ac134069fd0b9d2839fb13e48098ddf0d5fb47e63ef90793041b9246bece5b6c0e14df92dc150daa8e4ed12bf5ac31fca05a3e9ecde9d0ea87d8cec2d6967d377a48fcd2c4c8f752903cc47ed3a1f04209ba0a55bc942d3913cefb3575603a02edabf854e07576b581817e0bc955e91fc921151ceef51a77a1d78789d1d624691a0e638f8fc29ca11e2b0f7706f32a0b9
+      - JWT_EXPIRY=1d
+    volumes:
+      - .:/app
+    restart: unless-stopped

@@ -1,0 +1,142 @@
+openapi: 3.0.3
+info:
+  title: Bookstore Auth API
+  description: Backend authentication APIs for OTP, login, and password management
+  version: 1.0.0
+servers:
+  - url: http://localhost:4000/api/auth
+paths:
+  /send-otp:
+    post:
+      summary: Send OTP to email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                region:
+                  type: string
+              required: [email, region]
+      responses:
+        '200':
+          description: OTP sent
+
+  /verify-otp:
+    post:
+      summary: Verify OTP and create user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                otp:
+                  type: string
+                password:
+                  type: string
+                region:
+                  type: string
+              required: [email, otp, password, region]
+      responses:
+        '200':
+          description: User created
+
+  /login:
+    post:
+      summary: User login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                region:
+                  type: string
+              required: [email, password, region]
+      responses:
+        '200':
+          description: JWT token returned
+
+  /forgot-password:
+    post:
+      summary: Send OTP for password reset
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                region:
+                  type: string
+              required: [email, region]
+      responses:
+        '200':
+          description: OTP sent
+
+  /reset-password:
+    post:
+      summary: Reset password using OTP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                region:
+                  type: string
+                otp:
+                  type: string
+                newPassword:
+                  type: string
+              required: [email, region, otp, newPassword]
+      responses:
+        '200':
+          description: Password reset
+
+  /change-password:
+    post:
+      summary: Change password (JWT protected)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                currentPassword:
+                  type: string
+                newPassword:
+                  type: string
+                region:
+                  type: string
+              required: [currentPassword, newPassword, region]
+      responses:
+        '200':
+          description: Password changed
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
